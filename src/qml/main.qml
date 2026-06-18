@@ -43,10 +43,18 @@ Window {
 
         property bool settingsOpen: false
 
+        // Close settings when clicking outside the popover
+        TapHandler {
+            onTapped: function(eventPoint) {
+                if (mainPanel.settingsOpen && !settingsPopover.contains(settingsPopover.mapFromItem(mainPanel, eventPoint.position)))
+                    mainPanel.settingsOpen = false
+            }
+        }
+
         // Native Window Dragging Handler (Active on background only)
         DragHandler {
             target: null
-            grabPermissions: PointerHandler.CanTakeOverFromAnything
+            grabPermissions: PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.CanTakeOverFromHandlersOfSameType
             onActiveChanged: {
                 if (active) {
                     mainWindow.startSystemMove();
