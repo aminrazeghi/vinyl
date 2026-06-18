@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 
 Item {
     id: controlRoot
@@ -14,7 +15,7 @@ Item {
     signal playPauseClicked()
     signal nextClicked()
 
-    Row {
+    RowLayout {
         anchors.centerIn: parent
         spacing: 24
 
