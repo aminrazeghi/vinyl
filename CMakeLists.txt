@@ -46,3 +46,5 @@ target_link_libraries(vinyl_app PRIVATE
     Qt6::Quick
     Qt6::DBus
 )
+
+install(TARGETS vinyl_app RUNTIME DESTINATION bin)

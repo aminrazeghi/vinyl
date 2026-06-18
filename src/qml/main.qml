@@ -143,6 +143,9 @@ Window {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: mainPanel.settingsOpen = !mainPanel.settingsOpen
                 }
+				ToolTip.visible: settingsMouse.containsMouse
+                ToolTip.text: "Settings"
+                ToolTip.delay: 600
             }
 
             // Always On Top Pin
@@ -169,6 +172,9 @@ Window {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: settings.alwaysOnTop = !settings.alwaysOnTop
                 }
+				ToolTip.visible: pinMouse.containsMouse
+                ToolTip.text: "Always on top"
+                ToolTip.delay: 600
             }
 
             // Close Button
@@ -325,11 +331,11 @@ Window {
                         MouseArea {
                             anchors.fill: parent
                             onPressed: function(mouse) {
-                                settings.windowOpacity = Math.max(0.15, Math.min(1.0, mouse.x / opacitySliderTrack.width));
+                                settings.windowOpacity = Math.max(0.15, Math.min(1.0, mouse.x / (opacitySliderTrack.width - 14)));
                             }
                             onPositionChanged: function(mouse) {
                                 if (pressed)
-                                    settings.windowOpacity = Math.max(0.15, Math.min(1.0, mouse.x / opacitySliderTrack.width));
+                                    settings.windowOpacity = Math.max(0.15, Math.min(1.0, mouse.x / (opacitySliderTrack.width - 14)));
                             }
                         }
                     }
