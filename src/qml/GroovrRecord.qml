@@ -219,7 +219,7 @@ Item {
         // Angles:
         // -30: rest position
         // -5 to 12: active playback tracking outer to inner grooves
-        readonly property real restAngle: -32.0
+        readonly property real restAngle: -12.0
         readonly property real activeStartAngle: 20.0
         readonly property real activeEndAngle: 32.0
         readonly property real targetAngle: recordRoot.isPlaying ? 
