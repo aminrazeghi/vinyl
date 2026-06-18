@@ -29,9 +29,9 @@ Item {
         }
     }
 
-    // Outer Vinyl Shadow
+    // Outer Record Shadow
     Rectangle {
-        id: vinylShadow
+        id: groovrShadow
         anchors.fill: recordGroup
         radius: width / 2
         color: "transparent"
@@ -57,7 +57,7 @@ Item {
 
         // Procedural Vinyl Grooves Canvas
         Canvas {
-            id: vinylCanvas
+            id: groovrCanvas
             anchors.fill: parent
             
             onPaint: {

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates the Vinyl app icon: a vinyl record with a cyan label."""
+"""Generates the Groovr app icon: a vinyl record with a cyan label."""
 import math
 from PIL import Image, ImageDraw
 import os
@@ -50,7 +50,7 @@ circle(draw, cx, cy, 12, outline=(0, 210, 210), width=2)
 # ── Thin cyan edge ring ───────────────────────────────────────────────────────
 circle(draw, cx, cy, 247, outline=(0, 210, 210, 80), width=2)
 
-out = os.path.join(os.path.dirname(__file__), "vinyl_icon.png")
+out = os.path.join(os.path.dirname(__file__), "groovr_icon.png")
 # Ensure exactly 512×512 regardless of display DPI scaling
 if img.size != (512, 512):
     img = img.resize((512, 512), Image.LANCZOS)

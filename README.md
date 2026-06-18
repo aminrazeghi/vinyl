@@ -1,8 +1,8 @@
-# Vinyl
+# Groovr
 
 A frameless, always-on-top desktop music widget for Linux that visualizes the currently playing track as a spinning vinyl record. Controls Spotify (and any MPRIS-compatible player) via D-Bus.
 
-![Vinyl widget showing a spinning record with album art]
+![Groovr widget showing a spinning record with album art]
 
 ## Features
 
@@ -39,7 +39,7 @@ sudo pacman -S qt6-base qt6-declarative cmake
 
 ```bash
 git clone <repo-url>
-cd vinyl
+cd groovr
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
 ```
@@ -47,7 +47,7 @@ cmake --build build --parallel
 ## Run
 
 ```bash
-./build/vinyl_app
+./build/groovr_app
 ```
 
 The app runs under XWayland (`QT_QPA_PLATFORM=xcb`) so that window hints such as always-on-top and opacity work correctly on GNOME Wayland.
@@ -64,7 +64,7 @@ The app runs under XWayland (`QT_QPA_PLATFORM=xcb`) so that window hints such as
 | Tray icon click | Show / hide window |
 | Tray → Quit | Exit |
 
-Settings are persisted in `~/.config/VinylApp/VinylVisualizer.conf`.
+Settings are persisted in `~/.config/GroovrApp/Groovr.conf`.
 
 ## Project Structure
 
@@ -77,7 +77,7 @@ src/
   settings/                   — QSettings wrapper exposed to QML
   qml/
     main.qml                  — Root window, header, footer layout
-    VinylRecord.qml           — Spinning disc + cover art + tonearm
+    GroovrRecord.qml          — Spinning disc + cover art + tonearm
     ControlBar.qml            — Play/Pause/Prev/Next buttons
     SeekBar.qml               — Seek / progress bar
     PlayerSelector.qml        — MPRIS player picker dropdown

@@ -2,7 +2,7 @@
 
 SettingsManager::SettingsManager(QObject *parent)
     : QObject(parent)
-    , m_settings("VinylApp", "VinylVisualizer")
+    , m_settings("GroovrApp", "Groovr")
 {
 }
 

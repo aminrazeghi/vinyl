@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
 
     // QApplication is required since we use QSystemTrayIcon and QMenu (QtWidgets)
     QApplication app(argc, argv);
-    app.setApplicationName("VinylVisualizer");
-    app.setOrganizationName("VinylApp");
+    app.setApplicationName("Groovr");
+    app.setOrganizationName("GroovrApp");
 
     // Instantiate Modules
     SettingsManager settings;
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("adMuter", &adMuter);
 
     // Load Main QML File
-    const QUrl url(QStringLiteral("qrc:/VinylApp/src/qml/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/GroovrApp/src/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
@@ -64,9 +64,9 @@ int main(int argc, char *argv[])
     QSystemTrayIcon trayIcon(&app);
     
     // Set tray icon (using default cover from resources as tray fallback)
-    QIcon appIcon = QIcon::fromTheme("audio-x-generic", QIcon(":/VinylApp/assets/default_cover.png"));
+    QIcon appIcon = QIcon::fromTheme("audio-x-generic", QIcon(":/GroovrApp/assets/default_cover.png"));
     trayIcon.setIcon(appIcon);
-    trayIcon.setToolTip("Vinyl Visualizer");
+    trayIcon.setToolTip("Groovr");
 
     // Create Tray Menu
     QMenu trayMenu;
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
         QString title = mediaController.trackTitle();
         QString artist = mediaController.trackArtist();
         if (title == "No Media Playing") {
-            trayIcon.setToolTip("Vinyl Visualizer");
+            trayIcon.setToolTip("Groovr");
         } else {
             trayIcon.setToolTip(QString("%1 - %2").arg(title, artist));
         }

@@ -15,7 +15,7 @@ Window {
     opacity: settings.windowOpacity
     flags: Qt.Window | Qt.FramelessWindowHint | (settings.alwaysOnTop ? Qt.WindowStaysOnTopHint : 0)
 
-    title: "Vinyl Visualizer"
+    title: "Groovr"
 
     // Coalesce window movement/resize settings writes to avoid disk flood
     Timer {
@@ -222,8 +222,8 @@ Window {
             anchors.bottomMargin: 12
             spacing: 14
 
-            // The Vinyl Visualizer
-            VinylRecord {
+            // The Groovr Visualizer
+            GroovrRecord {
                 id: visualizer
                 width: Math.min(parent.width - 40, parent.height - 110)
                 height: width

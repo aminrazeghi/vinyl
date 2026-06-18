@@ -35,7 +35,7 @@ download_tool \
     "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage" \
     "$APPIMAGETOOL"
 
-echo "Building vinyl in Release mode..."
+echo "Building Groovr in Release mode..."
 cmake -S "$SCRIPT_DIR" -B "$BUILD_DIR" \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
@@ -52,33 +52,33 @@ mkdir -p "$APPDIR/usr/share/applications"
 mkdir -p "$APPDIR/usr/share/icons/hicolor/256x256/apps"
 
 # Create .desktop file
-cat > "$APPDIR/usr/share/applications/vinyl.desktop" <<'EOF'
+cat > "$APPDIR/usr/share/applications/groovr.desktop" <<'EOF'
 [Desktop Entry]
-Name=Vinyl
+Name=Groovr
 Comment=MPRIS music visualizer overlay
-Exec=vinyl_app
-Icon=vinyl
+Exec=groovr_app
+Icon=groovr
 Type=Application
 Categories=AudioVideo;Audio;Player;
 EOF
 
 # Regenerate icon if not present (requires Python3 + Pillow)
-if [[ ! -f "$SCRIPT_DIR/assets/vinyl_icon.png" ]]; then
+if [[ ! -f "$SCRIPT_DIR/assets/groovr_icon.png" ]]; then
     python3 "$SCRIPT_DIR/assets/gen_icon.py"
 fi
 
 # Install icon at all standard sizes (linuxdeploy expects at least one)
-cp "$SCRIPT_DIR/assets/vinyl_icon.png" \
-    "$APPDIR/usr/share/icons/hicolor/256x256/apps/vinyl.png"
+cp "$SCRIPT_DIR/assets/groovr_icon.png" \
+    "$APPDIR/usr/share/icons/hicolor/256x256/apps/groovr.png"
 
 echo "Bundling Qt dependencies..."
 QMAKE="$(which qmake6 || which qmake)" \
 QMLDIR="$SCRIPT_DIR/src/qml" \
     "$LINUXDEPLOY" \
     --appdir "$APPDIR" \
-    --executable "$APPDIR/usr/bin/vinyl_app" \
-    --desktop-file "$APPDIR/usr/share/applications/vinyl.desktop" \
-    --icon-file "$SCRIPT_DIR/assets/vinyl_icon.png" \
+    --executable "$APPDIR/usr/bin/groovr_app" \
+    --desktop-file "$APPDIR/usr/share/applications/groovr.desktop" \
+    --icon-file "$SCRIPT_DIR/assets/groovr_icon.png" \
     --plugin qt
 
 echo "Bundling QML modules (linuxdeploy-plugin-qt skips Qt6 optional modules)..."
@@ -122,7 +122,7 @@ done
 
 echo "Packaging AppImage..."
 VERSION=$(grep -m1 'project.*VERSION' "$SCRIPT_DIR/CMakeLists.txt" | grep -oP '[\d]+\.[\d]+\.[\d]+' || echo "1.0")
-ARCH=x86_64 "$APPIMAGETOOL" "$APPDIR" "$OUTPUT_DIR/Vinyl-$VERSION-x86_64.AppImage"
+ARCH=x86_64 "$APPIMAGETOOL" "$APPDIR" "$OUTPUT_DIR/Groovr-$VERSION-x86_64.AppImage"
 
 echo ""
-echo "Done: $OUTPUT_DIR/Vinyl-$VERSION-x86_64.AppImage"
+echo "Done: $OUTPUT_DIR/Groovr-$VERSION-x86_64.AppImage"
