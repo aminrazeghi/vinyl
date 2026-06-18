@@ -1,0 +1,12 @@
+Checks: >
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-default-member-init,
+  readability-braces-around-statements,
+  readability-else-after-return,
+  performance-unnecessary-copy-initialization
+
+WarningsAsErrors: ''
+HeaderFilterRegex: 'src/.*'
