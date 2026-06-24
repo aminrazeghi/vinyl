@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Avoid strip errors with newer ELF relocations (.relr.dyn)
+export NO_STRIP=1
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="$SCRIPT_DIR/build/Release"
 APPDIR="$SCRIPT_DIR/build/AppDir"
@@ -82,7 +85,19 @@ QMLDIR="$SCRIPT_DIR/src/qml" \
     --plugin qt
 
 echo "Bundling QML modules (linuxdeploy-plugin-qt skips Qt6 optional modules)..."
-QML_SRC=/usr/lib/x86_64-linux-gnu/qt6/qml
+# Dynamically locate QML source directory
+QML_SRC=""
+for dir in /usr/lib/qt6/qml /usr/lib/x86_64-linux-gnu/qt6/qml /usr/lib/qt/qml; do
+    if [[ -d "$dir/QtQuick" ]]; then
+        QML_SRC="$dir"
+        break
+    fi
+done
+if [[ -z "$QML_SRC" ]]; then
+    echo "ERROR: Could not locate QML source directory" >&2
+    exit 1
+fi
+
 QML_DEST="$APPDIR/usr/qml"
 mkdir -p "$QML_DEST"
 
@@ -101,7 +116,19 @@ find "$QML_DEST" -name "*.so" | while read -r so; do
 done
 
 # Copy Qt libs needed by those QML plugins (skip any already present)
-QT_LIB_SRC=/usr/lib/x86_64-linux-gnu
+# Dynamically locate Qt library directory
+QT_LIB_SRC=""
+for dir in /usr/lib/x86_64-linux-gnu /usr/lib; do
+    if [[ -f "$dir/libQt6Quick.so.6" ]]; then
+        QT_LIB_SRC="$dir"
+        break
+    fi
+done
+if [[ -z "$QT_LIB_SRC" ]]; then
+    echo "ERROR: Could not locate Qt library directory (libQt6Quick.so.6 not found)" >&2
+    exit 1
+fi
+
 for lib in \
     libQt6Quick.so.6 \
     libQt6QuickControls2.so.6 \
